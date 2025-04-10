@@ -4,6 +4,7 @@ export interface Rate {
   _id: string;
   rateCode: string;
   effectiveDate: string;
+  isActive: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -39,8 +40,14 @@ const rateService = {
     rateCode: string;
     nonRemoteAreas: number;
     remoteAreas: number;
+    isActive: boolean;
   }) {
     const response = await api.post(`/items/${itemId}/rates`, data);
+    return response.data;
+  },
+
+  async removeItemRate(itemId: string, rateId: string) {
+    const response = await api.delete(`/items/${itemId}/rates/${rateId}`);
     return response.data;
   }
 };

@@ -12,6 +12,7 @@ import ViewSPKModal from "@/components/modals/ViewSPKModal"; // Add this import
 import DeleteSPKModal from "@/components/modals/DeleteSPKModal";
 import { formatRupiah } from "@/utils/formatUtils";
 import ActivateSPKModal from "@/components/modals/ActivateSPKModal";
+import Button from "@/components/ui/button/Button";
 
 // Update to use the imported type instead of redefining it
 interface SPK extends SPKType {
@@ -38,6 +39,18 @@ export default function SPKPage() {
             setLoading(false);
         }
     };
+    const handleActivateDraftSPK = async (spk: SPK) => {
+        try {
+            setLoading(true);
+            await spkService.updateStatus(spk._id, 'active');
+            await fetchSPKs(); // Refresh the list
+        } catch (error) {
+            console.error('Error activating SPK:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    
 
     useEffect(() => {
         fetchSPKs();
@@ -126,12 +139,12 @@ export default function SPKPage() {
                         SPK Management
                     </div>
                     <div className="space-x-2">
-                        <button
+                        <Button
                             onClick={() => setIsModalOpen(true)}
                             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                         >
                             Create New SPK
-                        </button>
+                        </Button>
                     </div>
                 </div>
 
@@ -222,7 +235,15 @@ export default function SPKPage() {
                                                         >
                                                             View
                                                         </button>
-                                                        {spk.status !== 'cancelled' && (
+                                                        {spk.status === 'draft' && (
+                                                            <button
+                                                                className="px-3 py-1 text-sm bg-green-50 text-green-600 rounded-md hover:bg-green-100 transition-colors"
+                                                                onClick={() => handleActivateDraftSPK(spk)}
+                                                            >
+                                                                Activate
+                                                            </button>
+                                                        )}
+                                                        {spk.status !== 'cancelled' && spk.status !== 'draft' && (
                                                             <button
                                                                 className="px-3 py-1 text-sm bg-amber-50 text-amber-600 rounded-md hover:bg-amber-100 transition-colors"
                                                                 onClick={() => handleCancelSPK(spk)}
@@ -288,3 +309,5 @@ export default function SPKPage() {
         </div>
     );
 }
+
+

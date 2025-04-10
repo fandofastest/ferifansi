@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from '../ui/modal';
 import { toast } from 'react-toastify';
+import Button from '../ui/button/Button';
 
 interface CategoryModalProps {
   isOpen: boolean;
@@ -42,19 +43,20 @@ export default function CategoryModal({ isOpen, onClose, onSubmit }: CategoryMod
             />
           </div>
           <div className="flex justify-end gap-2 mt-4">
-            <button
+            <Button
+              variant="outline"
               type="button"
               onClick={onClose}
               className="px-3 py-1.5 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               type="submit"
-              className="px-3 py-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+              className="px-3 py-1.5 bg-blue-500 text-white rounded-lg "
             >
               Create
-            </button>
+            </Button>
           </div>
         </form>
       </div>

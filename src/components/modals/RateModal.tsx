@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Modal } from '../ui/modal';
 import rateService, { Rate } from '@/services/rateService';
 import AddRateCodeModal from './AddRateCodeModal';
+import Button from '../ui/button/Button';
+import { Switch } from '@/components/ui/switch/Switch';
 
 interface RateModalProps {
   isOpen: boolean;
@@ -13,6 +15,7 @@ interface RateModalProps {
 export default function RateModal({ isOpen, onClose, itemId, onSuccess }: RateModalProps) {
   const [rates, setRates] = useState<Rate[]>([]);
   const [showAddRateModal, setShowAddRateModal] = useState(false);
+  const [isActive, setIsActive] = useState(true); // Add active state
 
   useEffect(() => {
     fetchRates();
@@ -43,9 +46,10 @@ export default function RateModal({ isOpen, onClose, itemId, onSuccess }: RateMo
         rateCode: selectedRateCode,
         nonRemoteAreas: Number(formData.get('nonRemoteAreas')),
         remoteAreas: Number(formData.get('remoteAreas')),
+        isActive // Add isActive to the payload
       });
-      onSuccess?.(); // Trigger table refresh
-      onClose(); // Close dialog
+      onSuccess?.();
+      onClose();
     } catch (error) {
       console.error('Error creating rate:', error);
       alert('Failed to add rate. Please try again.');
@@ -66,7 +70,7 @@ export default function RateModal({ isOpen, onClose, itemId, onSuccess }: RateMo
                 <button
                   type="button"
                   onClick={() => setShowAddRateModal(true)}
-                  className="text-sm text-blue-500 hover:text-blue-700 dark:hover:text-blue-400"
+                  className="text-sm text-brand-500 hover:text-brand-600 dark:hover:text-brand-600"
                 >
                   + Add New Rate Code
                 </button>
@@ -102,25 +106,35 @@ export default function RateModal({ isOpen, onClose, itemId, onSuccess }: RateMo
                 required
               />
             </div>
+            <div className="flex items-center justify-between">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Status: {isActive ? 'Active' : 'Inactive'}
+              </label>
+              <Switch
+                checked={isActive}
+                onCheckedChange={setIsActive}
+                variant="primary"
+              />
+            </div>
             <div className="flex justify-end gap-2 mt-4">
-              <button
+              <Button
+                variant="outline"
                 type="button"
                 onClick={onClose}
                 className="px-3 py-1.5 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
-                className="px-3 py-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+                className="px-3 py-1.5 bg-blue-500 text-white rounded-lg "
               >
                 Create
-              </button>
+              </Button>
             </div>
           </form>
         </div>
       </Modal>
-
       {showAddRateModal && (
         <AddRateCodeModal
           isOpen={showAddRateModal}

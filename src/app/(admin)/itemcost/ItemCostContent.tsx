@@ -5,6 +5,7 @@ import ItemCostModal from "@/components/modals/ItemCostModal";
 import itemCostService from "@/services/itemCostService";
 import { ItemCost } from "@/services/itemCostService";
 import ItemCostTable from "./ItemCostTable";
+import Button from "@/components/ui/button/Button";
 
 export default function ItemCostContent() {
   const [items, setItems] = useState<ItemCost[]>([]);
@@ -54,12 +55,12 @@ export default function ItemCostContent() {
           Item Cost Management
         </div>
         <div className="space-x-2">
-          <button
+          <Button
             onClick={handleCreate}
             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
           >
             Create New Item
-          </button>
+          </Button>
         </div>
       </div>
 

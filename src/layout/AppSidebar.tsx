@@ -16,13 +16,10 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    name: "Item and Rate",
+    name: "Item Sales and Rate",
     path: "/unitrate"
   },
-  {
-    name: "SPK",
-    path: "/spk"
-  },
+
   {
     name: "Item Cost",
     subItems: [
@@ -35,6 +32,10 @@ const navItems: NavItem[] = [
         path: "/measureunit"
       }
     ]
+  },
+  {
+    name: "SPK",
+    path: "/spk"
   },
 ];
 
@@ -75,22 +76,22 @@ const AppSidebar: React.FC = () => {
             <>
               <Image
                 className="dark:hidden"
-                src="/images/logo/logo.svg"
+                src="/images/logo/logo.png"
                 alt="Logo"
-                width={150}
+                width={70}
                 height={40}
               />
               <Image
                 className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
+                src="/images/logo/logo.png"
                 alt="Logo"
-                width={150}
+                width={70}
                 height={40}
               />
             </>
           ) : (
             <Image
-              src="/images/logo/logo-icon.svg"
+              src="/images/logo/logo.png"
               alt="Logo"
               width={32}
               height={32}

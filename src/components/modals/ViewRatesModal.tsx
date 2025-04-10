@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from '../ui/modal';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "../ui/table";
+import rateService from '@/services/rateService';
 
 interface ViewRatesModalProps {
   isOpen: boolean;
@@ -8,9 +9,36 @@ interface ViewRatesModalProps {
   item: any;
   onAddRate: () => void;
   onEditRate: (rate: any) => void;
+  onDeleteRate?: (rate: any) => void; // Add this prop
+  onSuccess?: () => void; // Add this prop
 }
 
-export default function ViewRatesModal({ isOpen, onClose, item, onAddRate, onEditRate }: ViewRatesModalProps) {
+export default function ViewRatesModal({ 
+  isOpen, 
+  onClose, 
+  item, 
+  onAddRate, 
+  onEditRate,
+  onDeleteRate, // Add this to destructured props
+  onSuccess // Add this prop to refresh after delete
+}: ViewRatesModalProps) {
+
+  const handleDeleteRate = async (rate: any) => {
+    if (window.confirm('Are you sure you want to delete this rate?')) {
+      try {
+        await rateService.removeItemRate(item._id, rate.rateCode);
+        onSuccess?.(); // Refresh the data
+        onDeleteRate?.(rate); // Call the optional onDeleteRate prop
+      
+        
+      } catch (error) {
+        console.error('Error deleting rate:', error);
+        alert('Failed to delete rate');
+      }
+      onClose(); // Close the modal after deleting the rate
+    }
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="w-[600px] p-6 bg-white dark:bg-gray-800 rounded-lg">
@@ -61,12 +89,20 @@ export default function ViewRatesModal({ isOpen, onClose, item, onAddRate, onEdi
                       {rate.remoteAreas}
                     </TableCell>
                     <TableCell className="px-4 py-3 text-gray-600 dark:text-gray-400">
-                      <button
-                        onClick={() => onEditRate(rate)}
-                        className="text-blue-500 hover:text-blue-600"
-                      >
-                        Edit
-                      </button>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => onEditRate(rate)}
+                          className="text-blue-500 hover:text-blue-600"
+                        >
+                          Edit
+                        </button>
+                        <button
+                            onClick={() => handleDeleteRate(rate)}
+                            className="text-red-500 hover:text-red-600"
+                          >
+                            Delete
+                          </button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))

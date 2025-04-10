@@ -4,6 +4,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { ItemCost } from "@/services/itemCostService";
 import measureUnitService, { MeasureUnit } from "@/services/measureUnitService";
+import Button from "../ui/button/Button";
 
 interface ItemCostModalProps {
   isOpen: boolean;
@@ -166,7 +167,7 @@ export default function ItemCostModal({
                   <button type="button" onClick={() => remove(index)} className="text-red-500">Remove</button>
                 </div>
               ))}
-              <button type="button" onClick={() => append({ hari: '', overtimeRate: 0, _id: Date.now().toString() })} className="text-blue-500">Add Overtime</button>
+              <button type="button" onClick={() => append({ hari: '', overtimeRate: 0, _id: Date.now().toString() })} className="text-brand-500 hover:text-brand-600">Add Overtime</button>
             </div>
           )}
 
@@ -231,19 +232,20 @@ export default function ItemCostModal({
           )}
 
           <div className="flex justify-end gap-2 mt-4">
-            <button
+            <Button
+              variant="outline"
               type="button"
               onClick={onClose}
               className="px-3 py-1.5 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               type="submit"
-              className="px-3 py-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+              className="px-3 py-1.5 bg-blue-500 text-white rounded-lg "
             >
               {initialData ? 'Save Changes' : 'Create'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

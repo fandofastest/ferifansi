@@ -4,6 +4,7 @@ import categoryService, { Category } from '@/services/categoryService';
 import CategoryModal from './CategoryModal';
 import SubCategoryModal from './SubCategoryModal';
 import RateModal from './RateModal';
+import Button from '../ui/button/Button';
 
 interface ItemModalProps {
   isOpen: boolean;
@@ -122,7 +123,7 @@ export default function ItemModal({ isOpen, onClose, onSubmit, onRateSuccess }: 
             <div>
               <div className="flex justify-between items-center mb-1">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
-                <button type="button" onClick={() => setIsCategoryModalOpen(true)} className="text-xs text-blue-500 hover:text-blue-600 dark:text-blue-400">
+                <button type="button" onClick={() => setIsCategoryModalOpen(true)} className="text-xs text-brand-500 hover:text-brand-600 dark:text-brand-400">
                   + Add Category
                 </button>
               </div>
@@ -144,7 +145,7 @@ export default function ItemModal({ isOpen, onClose, onSubmit, onRateSuccess }: 
             <div>
               <div className="flex justify-between items-center mb-1">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Sub Category</label>
-                <button type="button" onClick={() => setIsSubCategoryModalOpen(true)} className="text-xs text-blue-500 hover:text-blue-600 dark:text-blue-400">
+                <button type="button" onClick={() => setIsSubCategoryModalOpen(true)} className="text-xs text-brand-500 hover:text-brand-600 dark:text-brand-400">
                   + Add Sub Category
                 </button>
               </div>
@@ -163,19 +164,21 @@ export default function ItemModal({ isOpen, onClose, onSubmit, onRateSuccess }: 
               </select>
             </div>
             <div className="flex justify-end gap-2 mt-4">
-              <button
+              <Button
+              variant="outline"
                 type="button"
                 onClick={onClose}
                 className="px-3 py-1.5 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="primary"
                 type="submit"
-                className="px-3 py-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+                className="px-3 py-1.5  text-white rounded-lg "
               >
                 Create
-              </button>
+              </Button>
             </div>
           </form>
         </div>

@@ -13,6 +13,7 @@ import { Modal } from "@/components/ui/modal";
 import EditItemModal from "@/components/modals/EditItemModal";
 import RateModal from "@/components/modals/RateModal";
 import ViewRatesModal from "@/components/modals/ViewRatesModal";
+import Button from "@/components/ui/button/Button";
 
 export default function UnitRatePage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -83,12 +84,12 @@ export default function UnitRatePage() {
           </div>
           <div className="space-x-2">
             
-            <button
+            <Button
               onClick={() => setIsModalOpen(true)}
               className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
             >
               Create New Item
-            </button>
+            </Button>
           </div>
         </div>
         <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
@@ -233,6 +234,7 @@ export default function UnitRatePage() {
             setIsViewRatesModalOpen(false);
             setSelectedItem(null);
           }}
+          onSuccess={fetchItems}
           item={selectedItem}
           onAddRate={() => {
             setIsRateModalOpen(true);
