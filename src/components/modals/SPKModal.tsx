@@ -9,6 +9,10 @@ import itemService, { Item as ServiceItem } from '@/services/itemService';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 import { PlusIcon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import AddItemModal from './AddItemModal';
+import locationService, { Location } from '@/services/locationService';
+
+// Add import
+import CreateLocationModal from './CreateLocationModal';
 
 interface SPKModalProps {
   isOpen: boolean;
@@ -16,14 +20,7 @@ interface SPKModalProps {
   onSuccess: (spk: SPK) => void; // Updated to pass the SPK object
 }
 
-// Define the item structure
-interface Item {
-  _id: string;
-  name: string;
-  rateCode: string;
-}
 
-// Define the structure for SPK items
 interface SPKItem {
   item: string; // Item ID
   rateCode: string;
@@ -41,21 +38,25 @@ export default function SPKModal({ isOpen, onClose, onSuccess }: SPKModalProps) 
     spkNo: '',
     spkTitle: '',
     projectStartDate: null as Date | null,
-    projectEndDate: null as Date | null
+    projectEndDate: null as Date | null,
+    location: '' // Add location field
   });
   
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState<ServiceItem[]>([]);
   const [spkItems, setSpkItems] = useState<SPKItem[]>([]);
   const [showItemSelector, setShowItemSelector] = useState(false);
-  
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [showLocationModal, setShowLocationModal] = useState(false); // Add this line
+
   // Fetch available items when modal opens
   useEffect(() => {
     if (isOpen) {
       fetchItems();
+      fetchLocations();
     }
   }, [isOpen]);
-  
+
   const fetchItems = async () => {
     try {
       const response = await itemService.getAll();
@@ -65,7 +66,16 @@ export default function SPKModal({ isOpen, onClose, onSuccess }: SPKModalProps) 
     }
   };
   
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const fetchLocations = async () => {
+    try {
+      const response = await locationService.getAll();
+      setLocations(response);
+    } catch (error) {
+      console.error('Error fetching locations:', error);
+    }
+  };
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -124,7 +134,8 @@ export default function SPKModal({ isOpen, onClose, onSuccess }: SPKModalProps) 
       spkNo: '',
       spkTitle: '',
       projectStartDate: null,
-      projectEndDate: null
+      projectEndDate: null,
+      location: '' // Add location reset
     });
     setSpkItems([]);
   };
@@ -132,26 +143,25 @@ export default function SPKModal({ isOpen, onClose, onSuccess }: SPKModalProps) 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.spkNo || !formData.spkTitle || !formData.projectStartDate || !formData.projectEndDate) {
+    if (!formData.spkNo || !formData.spkTitle || !formData.projectStartDate || !formData.projectEndDate || !formData.location) {
       alert('Please fill all required fields');
       return;
     }
     
     try {
       setIsLoading(true);
-      
-      // Format the request according to your API structure
       const spkData = {
         spkNo: formData.spkNo,
         spkTitle: formData.spkTitle,
         projectStartDate: formData.projectStartDate?.toISOString(),
         projectEndDate: formData.projectEndDate?.toISOString(),
-        items: spkItems
+        items: spkItems,
+        location: formData.location // Add location to request
       };
       
-      const response=await spkService.create(spkData);
+      const response = await spkService.create(spkData);
       resetForm();
-      onSuccess(response); // Pass the created SPK back
+      onSuccess(response);
       onClose();
     } catch (error) {
       console.error('Error creating SPK:', error);
@@ -229,6 +239,45 @@ export default function SPKModal({ isOpen, onClose, onSuccess }: SPKModalProps) 
                 />
               </div>
             </div>
+
+
+            
+            <div className="col-span-1">
+              <div className="flex justify-between items-center mb-1">
+                <Label>Location <span className="text-error-500">*</span></Label>
+                <button
+                  className="text-brand-500 hover:text-brand-700 dark:text-brand-500 dark:hover:text-brand-600"
+                  type="button"
+                  onClick={() => setShowLocationModal(true)}
+                >
+                +  Add Location
+                </button>
+              </div>
+              <select
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300"
+                required
+              >
+                <option value="">Select Location</option>
+                {locations.map((location) => (
+                  <option key={location._id} value={location._id}>
+                    {location.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
+            {/* Add CreateLocationModal */}
+            <CreateLocationModal
+              isOpen={showLocationModal}
+              onClose={() => setShowLocationModal(false)}
+              onSuccess={() => {
+                fetchLocations();
+                setShowLocationModal(false);
+              }}
+            />
             
             <div className="col-span-1 mt-3">
               <div className="flex justify-between items-center mb-2">

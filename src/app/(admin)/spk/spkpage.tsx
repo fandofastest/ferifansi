@@ -49,7 +49,7 @@ export default function SPKPage() {
             setLoading(false);
         }
     };
-    
+
 
     useEffect(() => {
         fetchSPKs();
@@ -105,7 +105,7 @@ export default function SPKPage() {
 
     const handleActivateSPK = async () => {
         if (!newlyCreatedSPK) return;
-        
+
         try {
             setLoading(true);
             await spkService.updateStatus(newlyCreatedSPK._id, 'active');
@@ -160,6 +160,9 @@ export default function SPKPage() {
                                             Project Title
                                         </TableCell>
                                         <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                                            Location
+                                        </TableCell>
+                                        <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
                                             Duration
                                         </TableCell>
                                         <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
@@ -201,6 +204,12 @@ export default function SPKPage() {
                                                     </div>
                                                 </TableCell>
                                                 <TableCell className="px-5 py-4 text-gray-600 dark:text-gray-400">
+                                                    <div className="font-medium">{spk.location?.name || 'No Location'}</div>
+                                                    <div className="text-xs text-gray-500">
+                                                        {spk.location ? `${spk.location.latitude}°, ${spk.location.longitude}°` : ''}
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell className="px-5 py-4 text-gray-600 dark:text-gray-400">
                                                     <div className="font-medium">{spk.projectDuration} days</div>
                                                 </TableCell>
                                                 <TableCell className="px-5 py-4">
@@ -218,6 +227,7 @@ export default function SPKPage() {
                                                 <TableCell className="px-5 py-4 text-gray-600 dark:text-gray-400 font-medium">
                                                     {formatRupiah(spk.totalAmount)}
                                                 </TableCell>
+
                                                 <TableCell className="px-5 py-4">
                                                     <div className="flex items-center space-x-1">
                                                         <span className="w-6 h-6 flex items-center justify-center bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
@@ -297,7 +307,7 @@ export default function SPKPage() {
                 onConfirm={confirmCancelSPK}
                 isLoading={isDeleting}
             />
-            
+
             {/* Replace the inline activation modal with the component */}
             <ActivateSPKModal
                 isOpen={isActivateModalOpen}
