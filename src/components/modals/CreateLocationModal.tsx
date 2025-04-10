@@ -89,7 +89,7 @@ export default function CreateLocationModal({ isOpen, onClose, onSuccess }: Crea
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="w-[400px] p-6 dark:bg-gray-800">
+      <div className="w-[400px] p-6 dark:bg-gray-800 bg-white ">
         <h4 className="font-semibold text-gray-800 mb-6 text-title-sm dark:text-white/90">
           Create New Location
         </h4>
