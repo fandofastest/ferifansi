@@ -1,13 +1,11 @@
 "use client";
 
-import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 import React, { useEffect, useState } from "react";
 import Pagination from "@/components/tables/Pagination";
 import ItemModal from "@/components/modals/ItemModal";
 import itemService from '@/services/itemService';
-import rateService, { Rate } from '@/services/rateService';
-import { Modal } from "@/components/ui/modal";
+import  { Rate } from '@/services/rateService';
 
 // Add import
 import EditItemModal from "@/components/modals/EditItemModal";
@@ -22,7 +20,6 @@ export default function UnitRatePage() {
   const [selectedRate, setSelectedRate] = useState<Rate | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<any>(null);
-  const [selectedRateIndex, setSelectedRateIndex] = useState<number | null>(null);
   const [isRateModalOpen, setIsRateModalOpen] = useState(false);
   const [isViewRatesModalOpen, setIsViewRatesModalOpen] = useState(false); // Add this line
   const itemsPerPage = 10;

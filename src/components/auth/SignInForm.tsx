@@ -5,8 +5,7 @@ import Checkbox from "@/components/form/input/Checkbox";
 import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
 import Button from "@/components/ui/button/Button";
-import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
-import Link from "next/link";
+import { Eye, EyeOff } from 'lucide-react'; // Replace SVG icons with Lucide icons
 import React, { useState } from "react";
 
 export default function SignInForm() {
@@ -83,12 +82,12 @@ export default function SignInForm() {
                   />
                   <span
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-1/2"
+                    className="absolute z-30 top-1/2 -translate-y-1/2 right-4 flex items-center justify-center"
                   >
                     {showPassword ? (
-                      <EyeIcon className="fill-gray-500 dark:fill-gray-400" />
+                      <Eye className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                     ) : (
-                      <EyeCloseIcon className="fill-gray-500 dark:fill-gray-400" />
+                      <EyeOff className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                     )}
                   </span>
                 </div>

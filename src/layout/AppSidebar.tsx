@@ -4,9 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "../context/SidebarContext";
-import { ChevronDownIcon, HorizontaLDots } from "../icons/index";
 // Remove this import
-import SidebarWidget from "./SidebarWidget";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { FlipHorizontalIcon } from "lucide-react";
 
 type NavItem = {
   name: string;
@@ -106,7 +106,7 @@ const AppSidebar: React.FC = () => {
               <h2 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
                 !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
               }`}>
-                {isExpanded || isHovered || isMobileOpen ? "Menu" : <HorizontaLDots />}
+                {isExpanded || isHovered || isMobileOpen ? "Menu" : <FlipHorizontalIcon />}
               </h2>
               <ul className="flex flex-col gap-4">
                 {navItems.map((nav, index) => (
@@ -122,7 +122,7 @@ const AppSidebar: React.FC = () => {
                           {(isExpanded || isHovered || isMobileOpen) && (
                             <>
                               <span className="menu-item-text dark:text-white">{nav.name}</span>
-                              <ChevronDownIcon
+                              <ChevronUpDownIcon
                                 className={`h-4 w-4 transition-transform dark:text-white ${
                                   openSubmenu === index ? "rotate-180" : ""
                                 }`}

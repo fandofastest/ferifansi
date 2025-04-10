@@ -13,7 +13,7 @@ export interface Rate {
   nonRemoteAreas: number;
   remoteAreas: number;
   isActive: {
-    type: Boolean,
+    type: boolean,
     default: false
   };
 }
