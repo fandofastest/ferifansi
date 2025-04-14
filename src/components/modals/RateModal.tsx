@@ -113,7 +113,7 @@ export default function RateModal({ isOpen, onClose, itemId, onSuccess }: RateMo
               <Switch
                 checked={isActive}
                 onCheckedChange={setIsActive}
-                variant="primary"
+                variant={isActive ? 'primary' : 'default'}
               />
             </div>
             <div className="flex justify-end gap-2 mt-4">

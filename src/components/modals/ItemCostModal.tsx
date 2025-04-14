@@ -116,6 +116,9 @@ export default function ItemCostModal({
                 </label>
                 <input
                   type="number"
+                  step="0.01"
+                  min="0"
+                  placeholder="e.g., 25.5"
                   {...register('costPerHour', { required: 'Cost per hour is required' })}
                   onBlur={handleHourBlur}
                   className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
@@ -139,6 +142,7 @@ export default function ItemCostModal({
               <option value="equipment">Equipment</option>
               <option value="material">Material</option>
               <option value="security">Security</option>
+              <option value="other">Other</option>
             </select>
             {errors.kategori && (
               <p className="text-red-500 text-sm mt-1">{errors.kategori.message}</p>
@@ -178,15 +182,18 @@ export default function ItemCostModal({
               </label>
               <input
                 type="number"
+                step="0.01"
+                min="0"
                 {...register('details.equipmentDetails.fuelConsumptionPerHour')}
                 className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                placeholder="e.g., 2.5"
               />
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                GPS Cost Per Day
+                GPS Cost Per Month
               </label>
               <input
                 type="number"
-                {...register('details.equipmentDetails.gpsCostPerDay')}
+                {...register('details.equipmentDetails.gpsCostPerMonth')}
                 className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               />
             </div>

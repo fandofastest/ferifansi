@@ -11,7 +11,7 @@ const switchStyles = cva(
           'data-[state=checked]:bg-green-500 data-[state=checked]:dark:bg-green-600' // Active state
         ],
         primary: [
-          'bg-brand-400 dark:bg-brand-600', // Inactive state (red)
+          'bg-brand-600 dark:bg-brand-600', // Inactive state (red)
           'data-[state=checked]:bg-brand-500 data-[state=checked]:dark:bg-brand-600' // Active state (blue)
         ],
       },

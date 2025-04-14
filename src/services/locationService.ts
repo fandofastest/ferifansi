@@ -22,13 +22,25 @@ const locationService = {
   },
 
   async getAll() {
-    const response = await api.get<Location[]>('/locations');
-    return response.data;
+    try {
+      const response = await api.get<Location[]>('/locations');
+      console.log('Fetched locations:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching locations:', error);
+      throw error;
+    }
   },
 
   async getById(id: string) {
-    const response = await api.get(`/locations/${id}`);
-    return response.data;
+    try {
+      const response = await api.get(`/locations/${id}`);
+      console.log('Fetched location by id:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching location with id ${id}:`, error);
+      throw error;
+    }
   },
 
   async update(id: string, data: Partial<LocationData>) {

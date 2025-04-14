@@ -27,6 +27,8 @@ export default function ViewRatesModal({
     if (window.confirm('Are you sure you want to delete this rate?')) {
       try {
         await rateService.removeItemRate(item._id, rate.rateCode);
+        console.log(rate);
+        
         onSuccess?.(); // Refresh the data
         onDeleteRate?.(rate); // Call the optional onDeleteRate prop
       

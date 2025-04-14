@@ -1,4 +1,5 @@
 import api from '@/lib/axios';
+import { Location } from './locationService';
 
 export interface SPKData {
   spkNo: string;
@@ -6,7 +7,7 @@ export interface SPKData {
   projectStartDate: string;
   projectEndDate: string;
   items: {
-    item: string;
+    item: string;  // Item ID
     rateCode: string;
     estQty: {
       quantity: {
@@ -15,17 +16,11 @@ export interface SPKData {
       }
     }
   }[];
-  location: string;
-  solarPrice?: number;
   status?: string;
 }
-interface Location {
-  _id: string;
-  name: string;
-  latitude: number;
-  longitude: number;
-  createdAt: string;
-}
+
+
+
 // Response item structure
 export interface SPKItem {
   estQty: {
@@ -82,11 +77,10 @@ export interface SPK {
   items: SPKItem[];
   status: string;
   totalAmount: number;
-  location: Location;
-  solarPrice: number;
   createdAt: string;
   updatedAt: string;
   projectDuration: number;
+  location: Location;
   __v?: number;
   id?: string;
 }

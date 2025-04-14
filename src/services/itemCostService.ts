@@ -12,7 +12,7 @@ export interface ManpowerDetails {
 
 export interface EquipmentDetails {
   fuelConsumptionPerHour?: number;
-  gpsCostPerDay?: number;
+  gpsCostPerMonth?: number;
 }
 
 export interface MaterialDetails {
@@ -36,7 +36,7 @@ export interface ItemCost {
   nama: string;
   costPerMonth: number;
   costPerHour: number;
-  kategori: 'manpower' | 'equipment' | 'material' | 'security'; // Updated enum
+  kategori: 'manpower' | 'equipment' | 'material' | 'security'|'other'; // Updated enum
   details: ItemCostDetails;
   createdAt: string;
   updatedAt: string;

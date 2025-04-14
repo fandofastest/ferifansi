@@ -1,7 +1,7 @@
 import ComponentCard from "@/components/common/ComponentCard";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import Button from "@/components/ui/button/Button";
-import { Box, BoxIcon } from 'lucide-react'; // Replace BoxIcon with Lucide's Box icon
+import { BoxIcon } from "@/icons";
 import { Metadata } from "next";
 import React from "react";
 
@@ -30,7 +30,7 @@ export default function Buttons() {
         {/* Primary Button with Start Icon */}
         <ComponentCard title="Primary Button with Left Icon">
           <div className="flex items-center gap-5">
-            <Button size="sm" variant="primary" startIcon={<Box />}>
+            <Button size="sm" variant="primary" startIcon={<BoxIcon />}>
               Button Text
             </Button>
             <Button size="md" variant="primary" startIcon={<BoxIcon />}>
