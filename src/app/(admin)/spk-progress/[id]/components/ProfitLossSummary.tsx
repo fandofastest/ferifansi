@@ -35,21 +35,25 @@ export function ProfitLossSummary({ salesSummary, costSummary }: ProfitLossProps
               <TableCell key={week} className="font-medium text-gray-800 dark:text-gray-200">{formatRupiah(costSummary[week])}</TableCell>
             ))}
           </TableRow>
-          <TableRow className={`font-semibold ${
-            Object.values(salesSummary).reduce((a, b) => a + b, 0) - 
-            Object.values(costSummary).reduce((a, b) => a + b, 0) > 0 
-              ? 'text-green-600 dark:text-green-400' 
-              : 'text-red-600 dark:text-red-400'
-          }`}>
+          <TableRow className="font-semibold">
             <TableCell className="font-medium text-gray-800 dark:text-gray-200">Profit/Loss</TableCell>
-            <TableCell className="font-medium text-gray-800 dark:text-gray-200">
+            <TableCell className={`font-medium ${
+              Object.values(salesSummary).reduce((a, b) => a + b, 0) - 
+              Object.values(costSummary).reduce((a, b) => a + b, 0) > 0 
+                ? 'text-green-600 dark:text-green-400' 
+                : 'text-red-600 dark:text-red-400'
+            }`}>
               {formatRupiah(
                 Object.values(salesSummary).reduce((a, b) => a + b, 0) - 
                 Object.values(costSummary).reduce((a, b) => a + b, 0)
               )}
             </TableCell>
             {Object.keys(salesSummary).map(week => (
-              <TableCell key={week} className="font-medium text-gray-800 dark:text-gray-200">
+              <TableCell key={week} className={`font-medium ${
+                salesSummary[week] - costSummary[week] > 0 
+                  ? 'text-green-600 dark:text-green-400' 
+                  : 'text-red-600 dark:text-red-400'
+              }`}>
                 {formatRupiah(salesSummary[week] - costSummary[week])}
               </TableCell>
             ))}
