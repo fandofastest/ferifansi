@@ -35,7 +35,16 @@ const navItems: NavItem[] = [
   },
   {
     name: "SPK",
-    path: "/spk"
+    subItems: [
+      {
+        name: "SPK List",
+        path: "/spk"
+      },
+      {
+        name: "Progress", 
+        path: "/spk-progress"
+      }
+    ]
   },
 ];
 

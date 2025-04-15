@@ -12,6 +12,7 @@ import DeleteSPKModal from "@/components/modals/DeleteSPKModal";
 import { formatRupiah } from "@/utils/formatUtils";
 import ActivateSPKModal from "@/components/modals/ActivateSPKModal";
 import Button from "@/components/ui/button/Button";
+import Link from 'next/link';
 
 // Update to use the imported type instead of redefining it
 interface SPK extends SPKType {
@@ -238,27 +239,38 @@ export default function SPKPage() {
                                                 </TableCell>
                                                 <TableCell className="px-5 py-4 text-gray-600 dark:text-gray-400">
                                                     <div className="flex space-x-2">
-                                                        <button
-                                                            className="px-3 py-1 text-sm bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100 transition-colors"
+                                                        <Button
+                                                            variant="outline"
                                                             onClick={() => handleViewSPK(spk)}
+                                                            className="px-2 py-1 text-xs"
                                                         >
                                                             View
-                                                        </button>
+                                                        </Button>
+                                                        <Link href={`/spk-progress/${spk._id}`}>
+                                                            <Button
+                                                                variant="outline"
+                                                                className="px-2 py-1 text-xs"
+                                                            >
+                                                                Detail Progress
+                                                            </Button>
+                                                        </Link>
                                                         {spk.status === 'draft' && (
-                                                            <button
-                                                                className="px-3 py-1 text-sm bg-green-50 text-green-600 rounded-md hover:bg-green-100 transition-colors"
+                                                            <Button
+                                                                variant="outline"
                                                                 onClick={() => handleActivateDraftSPK(spk)}
+                                                                className="px-2 py-1 text-xs"
                                                             >
                                                                 Activate
-                                                            </button>
+                                                            </Button>
                                                         )}
                                                         {spk.status !== 'cancelled' && spk.status !== 'draft' && (
-                                                            <button
-                                                                className="px-3 py-1 text-sm bg-amber-50 text-amber-600 rounded-md hover:bg-amber-100 transition-colors"
+                                                            <Button
+                                                                variant="outline"
                                                                 onClick={() => handleCancelSPK(spk)}
+                                                                className="px-2 py-1 text-xs"
                                                             >
                                                                 Cancel
-                                                            </button>
+                                                            </Button>
                                                         )}
                                                     </div>
                                                 </TableCell>

@@ -30,7 +30,12 @@ export default function ItemCostModal({
   const handleMonthBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const monthlyValue = parseFloat(e.target.value);
     if (!isNaN(monthlyValue)) {
-      const calculatedHourly = monthlyValue / (22 * 8);
+      // Round to integer
+      const roundedMonthly = Math.round(monthlyValue);
+      setValue('costPerMonth', roundedMonthly);
+      
+      // Calculate hourly and round to integer
+      const calculatedHourly = Math.round(roundedMonthly / (22 * 8));
       setValue('costPerHour', calculatedHourly);
     }
   };
@@ -38,7 +43,12 @@ export default function ItemCostModal({
   const handleHourBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const hourlyValue = parseFloat(e.target.value);
     if (!isNaN(hourlyValue)) {
-      const calculatedMonthly = hourlyValue * (22 * 8);
+      // Round to integer
+      const roundedHourly = Math.round(hourlyValue);
+      setValue('costPerHour', roundedHourly);
+      
+      // Calculate monthly and round to integer
+      const calculatedMonthly = Math.round(roundedHourly * (22 * 8));
       setValue('costPerMonth', calculatedMonthly);
     }
   };
@@ -80,6 +90,24 @@ export default function ItemCostModal({
         </h2>
         
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-3">
+        <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Category
+            </label>
+            <select
+              {...register('kategori', { required: 'Category is required' })}
+              className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            >
+              <option value="manpower">Manpower</option>
+              <option value="equipment">Equipment</option>
+              <option value="material">Material</option>
+              <option value="security">Security</option>
+              <option value="other">Other</option>
+            </select>
+            {errors.kategori && (
+              <p className="text-red-500 text-sm mt-1">{errors.kategori.message}</p>
+            )}
+          </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Name
@@ -130,24 +158,7 @@ export default function ItemCostModal({
             </>
           )}
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Category
-            </label>
-            <select
-              {...register('kategori', { required: 'Category is required' })}
-              className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-            >
-              <option value="manpower">Manpower</option>
-              <option value="equipment">Equipment</option>
-              <option value="material">Material</option>
-              <option value="security">Security</option>
-              <option value="other">Other</option>
-            </select>
-            {errors.kategori && (
-              <p className="text-red-500 text-sm mt-1">{errors.kategori.message}</p>
-            )}
-          </div>
+   
 
           {/* Conditional fields based on selected category */}
           {selectedCategory === 'manpower' && (
