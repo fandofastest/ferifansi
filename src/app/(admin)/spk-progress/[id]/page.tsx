@@ -126,7 +126,7 @@ export default function SPKDetailsPage({ params }: { params: Promise<{ id: strin
       {/* SPK Header */}
       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
         <div className="flex justify-between items-start mb-4">
-          <h1 className="text-2xl font-bold">{spkInfo.spkNo}</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{spkInfo.spkNo}</h1>
           <button
             onClick={handleExportExcel}
             className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
@@ -137,24 +137,24 @@ export default function SPKDetailsPage({ params }: { params: Promise<{ id: strin
         <div className="grid grid-cols-2 gap-6">
           <div className="space-y-4">
             <div>
-              <p className="text-gray-600">Project Title</p>
-              <p className="font-medium">{spkInfo.spkTitle}</p>
+              <p className="text-gray-600 dark:text-gray-300">Project Title</p>
+              <p className="font-medium text-gray-900 dark:text-gray-100">{spkInfo.spkTitle}</p>
             </div>
             <div>
-              <p className="text-gray-600">Location</p>
-              <p className="font-medium">{spkInfo.location.name}</p>
+              <p className="text-gray-600 dark:text-gray-300">Location</p>
+              <p className="font-medium text-gray-900 dark:text-gray-100">{spkInfo.location.name}</p>
             </div>
           </div>
           <div className="space-y-4">
             <div>
-              <p className="text-gray-600">Total Contract Value</p>
-              <p className="font-medium text-lg">{formatRupiah(spkInfo.totalAmount)}</p>
+              <p className="text-gray-600 dark:text-gray-300">Total Contract Value</p>
+              <p className="font-medium text-lg text-gray-900 dark:text-gray-100">{formatRupiah(spkInfo.totalAmount)}</p>
             </div>
             <div>
-              <p className="text-gray-600">Project Duration</p>
-              <p className="font-medium">
+              <p className="text-gray-600 dark:text-gray-300">Project Duration</p>
+              <p className="font-medium text-gray-900 dark:text-gray-100">
                 {formatDate(spkInfo.projectStartDate)} - {formatDate(spkInfo.projectEndDate)}
-                <span className="ml-2 text-gray-500">
+                <span className="ml-2 text-gray-500 dark:text-gray-400">
                   ({Math.ceil((new Date(spkInfo.projectEndDate).getTime() - 
                     new Date(spkInfo.projectStartDate).getTime()) / 
                     (1000 * 60 * 60 * 24))} days)

@@ -81,14 +81,14 @@ export function CostDetails({ progressData, onSummary }: CostDetailsProps) {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Cost Summary</h2>
+      <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Cost Summary</h2>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableCell isHeader>Category</TableCell>
-            <TableCell isHeader>Total Amount</TableCell>
+            <TableCell isHeader className="text-gray-800 dark:text-gray-200">Category</TableCell>
+            <TableCell isHeader className="text-gray-800 dark:text-gray-200">Total Amount</TableCell>
             {Object.keys(costSummary).map((week) => (
-              <TableCell key={week} isHeader>{week}</TableCell>
+              <TableCell key={week} isHeader className="text-gray-800 dark:text-gray-200">{week}</TableCell>
             ))}
           </TableRow>
         </TableHeader>
@@ -102,14 +102,14 @@ export function CostDetails({ progressData, onSummary }: CostDetailsProps) {
             'Consumable & Other': 'consumable'
           }).map(([label, key]) => (
             <TableRow key={key}>
-              <TableCell>{label}</TableCell>
-              <TableCell>
+              <TableCell className="text-gray-800 dark:text-gray-200">{label}</TableCell>
+              <TableCell className="text-gray-800 dark:text-gray-200">
                 {formatRupiah(
                   Object.values(costSummary).reduce((sum, week) => sum + week[key as keyof CategorySummary], 0)
                 )}
               </TableCell>
               {Object.keys(costSummary).map(week => (
-                <TableCell key={week}>
+                <TableCell key={week} className="text-gray-800 dark:text-gray-200">
                   {formatRupiah(costSummary[week][key as keyof CategorySummary])}
                 </TableCell>
               ))}
@@ -117,9 +117,9 @@ export function CostDetails({ progressData, onSummary }: CostDetailsProps) {
           ))}
 
           {/* Weekly Totals Row */}
-          <TableRow className="bg-gray-100 font-semibold">
-            <TableCell>Weekly Total</TableCell>
-            <TableCell>
+          <TableRow className="bg-gray-100 dark:bg-gray-700 font-semibold">
+            <TableCell className="text-gray-800 dark:text-gray-200">Weekly Total</TableCell>
+            <TableCell className="text-gray-800 dark:text-gray-200">
               {formatRupiah(
                 Object.values(costSummary).reduce((sum, week) => 
                   sum + Object.values(week).reduce((weekSum, amount) => weekSum + amount, 0)
@@ -127,7 +127,7 @@ export function CostDetails({ progressData, onSummary }: CostDetailsProps) {
               )}
             </TableCell>
             {Object.keys(costSummary).map(week => (
-              <TableCell key={week}>
+              <TableCell key={week} className="text-gray-800 dark:text-gray-200">
                 {formatRupiah(
                   Object.values(costSummary[week]).reduce((sum, amount) => sum + amount, 0)
                 )}

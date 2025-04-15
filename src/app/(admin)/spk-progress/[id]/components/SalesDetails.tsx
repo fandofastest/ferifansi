@@ -24,7 +24,7 @@ export function SalesDetails({ progressData, onSummary }: SalesDetailsProps) {
     calculateSalesSummary(progressData);
   }, [progressData]);
 
-  // Add this useEffect with proper memoization
+  // Memoize the summary calculation
   const memoizedSummary = React.useMemo(() => {
     return Object.entries(salesSummary).reduce((acc, [week, items]) => ({
       ...acc,
@@ -32,6 +32,7 @@ export function SalesDetails({ progressData, onSummary }: SalesDetailsProps) {
     }), {});
   }, [salesSummary]);
 
+  // Emit the memoized summary
   useEffect(() => {
     onSummary(memoizedSummary);
   }, [memoizedSummary, onSummary]);
@@ -68,14 +69,14 @@ export function SalesDetails({ progressData, onSummary }: SalesDetailsProps) {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Progress Items Summary</h2>
+      <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Progress Items Summary</h2>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableCell isHeader>Description</TableCell>
-            <TableCell isHeader>Total Amount</TableCell>
+            <TableCell isHeader className="text-gray-800 dark:text-gray-200">Description</TableCell>
+            <TableCell isHeader className="text-gray-800 dark:text-gray-200">Total Amount</TableCell>
             {Object.keys(salesSummary).map((week) => (
-              <TableCell key={week} isHeader>{week}</TableCell>
+              <TableCell key={week} isHeader className="text-gray-800 dark:text-gray-200">{week}</TableCell>
             ))}
           </TableRow>
         </TableHeader>
@@ -83,8 +84,8 @@ export function SalesDetails({ progressData, onSummary }: SalesDetailsProps) {
           {/* Items */}
           {Array.from(new Set(Object.values(salesSummary).flat().map(item => item.description))).map(desc => (
             <TableRow key={desc}>
-              <TableCell>{desc}</TableCell>
-              <TableCell>
+              <TableCell className="text-gray-800 dark:text-gray-200">{desc}</TableCell>
+              <TableCell className="text-gray-800 dark:text-gray-200">
                 {formatRupiah(
                   Object.values(salesSummary)
                     .flat()
@@ -93,7 +94,7 @@ export function SalesDetails({ progressData, onSummary }: SalesDetailsProps) {
                 )}
               </TableCell>
               {Object.keys(salesSummary).map(week => (
-                <TableCell key={week}>
+                <TableCell key={week} className="text-gray-800 dark:text-gray-200">
                   {formatRupiah(
                     salesSummary[week]
                       .filter(item => item.description === desc)
@@ -105,9 +106,9 @@ export function SalesDetails({ progressData, onSummary }: SalesDetailsProps) {
           ))}
 
           {/* Weekly Totals Row */}
-          <TableRow className="bg-gray-100 font-semibold">
-            <TableCell>Weekly Total</TableCell>
-            <TableCell>
+          <TableRow className="bg-gray-100 dark:bg-gray-700 font-semibold">
+            <TableCell className="text-gray-800 dark:text-gray-200">Weekly Total</TableCell>
+            <TableCell className="text-gray-800 dark:text-gray-200">
               {formatRupiah(
                 Object.values(salesSummary)
                   .flat()
@@ -115,7 +116,7 @@ export function SalesDetails({ progressData, onSummary }: SalesDetailsProps) {
               )}
             </TableCell>
             {Object.entries(salesSummary).map(([week, items]) => (
-              <TableCell key={week}>
+              <TableCell key={week} className="text-gray-800 dark:text-gray-200">
                 {formatRupiah(items.reduce((sum, item) => sum + item.amount, 0))}
               </TableCell>
             ))}
