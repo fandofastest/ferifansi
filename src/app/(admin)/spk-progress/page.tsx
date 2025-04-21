@@ -52,12 +52,7 @@ export default function SPKProgressPage() {
             SPK Progress
           </div>
           <div className="space-x-2">
-            <Button
-              onClick={() => {/* Add view for creating new progress */}}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-            >
-              Create New Progress
-            </Button>
+ 
           </div>
         </div>
 
@@ -119,13 +114,7 @@ export default function SPKProgressPage() {
                         </TableCell>
                         <TableCell className="px-5 py-4 text-gray-600 dark:text-gray-400">
                           <div className="flex space-x-2">
-                            <Button
-                              variant="outline"
-                              onClick={() => {/* View details */}}
-                              className="px-2 py-1 text-xs"
-                            >
-                              View
-                            </Button>
+                           
                           </div>
                         </TableCell>
                       </TableRow>

@@ -46,6 +46,11 @@ const navItems: NavItem[] = [
       }
     ]
   },
+  // --- Add this block for Solar Price ---
+  {
+    name: "Solar Price",
+    path: "/solarprice"
+  }
 ];
 
 const AppSidebar: React.FC = () => {
